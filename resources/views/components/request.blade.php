@@ -32,7 +32,7 @@
                     </button>
                 </div>
             @else
-                <p>Нет изображений для отображения.</p>
+                <p>Нима изображений для отображения.</p>
             @endif
         </div>
         <h5 class="card-title">{{ $request->car->make }} - {{ $request->location }}</h5>
