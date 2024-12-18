@@ -3,12 +3,12 @@
 @section('content')
     <div class="container">
         <h1>Добавить заявку</h1>
-        <form action="{{ route('my-requests.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('client.requests.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Car Selection -->
             <div class="form-group">
-                <label for="car_id">Выберите автомобиль</label>
+                <label for="car_id">Wybierz samochód</label>
                 <select id="car_id" name="car_id" class="form-control" required>
                     @foreach($cars as $car)
                         <option value="{{ $car->id }}">{{ $car->make }} {{ $car->model }} ({{ $car->year }})</option>
@@ -17,10 +17,9 @@
             </div>
 
 
-
             <!-- Problem Description -->
             <div class="form-group">
-                <label for="problem_description">Описание проблемы</label>
+                <label for="problem_description">Opis problemu</label>
                 <textarea id="problem_description"
                           name="problem_description"
                           class="form-control"
@@ -30,19 +29,18 @@
 
             <!-- Urgency -->
             <div class="form-group">
-                <label for="urgency">Срочность</label>
+                <label for="urgency">Pilność</label>
                 <select id="urgency" name="urgency" class="form-control" required>
-                    <option value="low">Низкая</option>
-                    <option value="medium">Средняя</option>
-                    <option value="high">Высокая</option>
+                    <option value="low">Niewielkie znaczenie</option>
+                    <option value="medium">Średnie znaczenie</option>
+                    <option value="high">Duże znaczenie</option>
                 </select>
             </div>
 
 
-
             <!-- Location -->
             <div class="form-group">
-                <label for="location">Местоположение</label>
+                <label for="location">Lokalizacja</label>
                 <input id="location"
                        type="text"
                        name="location"
@@ -52,16 +50,18 @@
 
             <!-- Attachments -->
             <div class="form-group">
-                <label for="attachments">Фотографии (до 3 штук)</label>
+                <label for="attachments">Zdjęcia (do 3 sztuk)</label>
                 <div class="input-group">
                     <input type="file" name="attachments[]" id="attachments" multiple accept="image/*">
                 </div>
-                <small class="form-text text-muted">Вы можете загрузить до 3 изображений.</small>
+                <small class="form-text text-muted">
+                    Możesz przesłać maksymalnie 3 zdjęcia.
+                </small>
             </div>
 
             <!-- Submit Button -->
             <br>
-            <button type="submit" class="btn btn-primary">Добавить заявку</button>
+            <button type="submit" class="btn btn-primary">Dodaj zgłoszenie</button>
         </form>
     </div>
 @endsection

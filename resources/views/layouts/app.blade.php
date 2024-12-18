@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ '../app/css'}}">
-
+    <!-- Подключаем Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Подключаем Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -34,35 +34,34 @@
                 @if(Auth::check() && Auth::user()->hasRole('repair_client'))
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('my-requests')}}">Мои
-                                объявления</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('client.requests')}}">Moje zgłoszenia</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('my-cars')}}">Мои
-                                автомобили</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('my-cars')}}">Moje auto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Отклики</a>
+                            <a class="nav-link active" aria-current="page" href="#">Odpowiedzi</a>
                         </li>
-
                     </ul>
-                    <!-- Right Side Of Navbar -->
-
                 @endif
 
                 {{--                FOR SERVICE--}}
                 @if(Auth::check() && Auth::user()->hasRole('service_owner'))
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Объявления</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('service.requests')}}">Zgloszenia</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Мой салон</a>
+                            <a class="nav-link active" aria-current="page" href="#">Mój warsztat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Moje odpowiedzi</a>
                         </li>
                     </ul>
                 @endif
 
                 <ul class="navbar-nav ms-auto">
+
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
@@ -77,16 +76,23 @@
                         @endif
 
                     @else
-                        <a class="btn btn-outline-dark" href="#">Уведомления</a>
-                        <a class="btn btn-outline-dark" href="#">Сообщения</a>
-
+                        <a class="btn btn-outline-dark mx-2" href="#">
+                            <i class="bi bi-bell"></i> <!-- Иконка колокольчика для уведомлений -->
+                        </a>
+                        <a class="btn btn-outline-dark mx-2" href="#">
+                            <i class="bi bi-chat"></i> <!-- Иконка сообщения -->
+                        </a>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item" href="{{ route('logout') }}">
+                                    {{ __('Profile') }}
+                                </a>
+
+                                <a class="dropdown-item" href="#"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -102,9 +108,9 @@
             </div>
         </div>
     </nav>
-    <main class="p-5">
+    <div class="p-5">
         @yield('content')
-    </main>
+    </div>
 </div>
 </body>
 </html>

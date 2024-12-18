@@ -14,12 +14,17 @@ class CarController extends Controller
 
 
 
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+    public function index(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Car::all();
+    }
+
+    public function user_cars(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
     {
         $user = Auth::user();
-        if ($user && $user->role_id === 2) {
+        if ($user) {
             $cars = $user->cars;
-            return view('my-cars.index', compact('cars'));
+            return view('client.cars.index', compact('cars'));
         }
         return view('home');
     }
@@ -29,7 +34,7 @@ class CarController extends Controller
      */
     public function create(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return view('cars.create');
+        return view('client.cars.create');
     }
 
     /**
@@ -65,7 +70,7 @@ class CarController extends Controller
             'image' => $imagePath,
         ]);
 
-       return redirect('home')->with('status', 'Машина успешно добавлена');
+       return redirect()->route('my-cars')->with('status', 'Maszyna została dodana pomyślnie');
     }
 
     /**
@@ -74,7 +79,7 @@ class CarController extends Controller
     public function show($id): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $car = Car::findOrFail($id);
-        return view('cars.show', compact('car'));
+        return view('client.cars.show', compact('car'));
     }
 
     /**
@@ -83,7 +88,7 @@ class CarController extends Controller
     public function edit($id): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $car = Car::findOrFail($id);
-        return view('cars.edit', compact('car'));
+        return view('client.cars.edit', compact('car'));
     }
 
     /**
@@ -106,7 +111,7 @@ class CarController extends Controller
         }
 
         if (!is_numeric($request->mileage)) {
-            return redirect()->back()->withErrors(['mileage' => 'Mileage must be a number']);
+            return redirect()->back()->withErrors(['mileage' => 'Przebieg musi być liczbą']);
         }
 
         $input = [
@@ -124,7 +129,7 @@ class CarController extends Controller
 
         $car->update($input);
 
-        return redirect('home')->with('status', 'Машина успешно обновлена');
+        return redirect('home')->with('status', 'Samochód został zaktualizowany');
     }
 
     /**
@@ -133,7 +138,11 @@ class CarController extends Controller
     public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $car = Car::findOrFail($id);
+
+        if ($car->serviceRequests()->exists()) {
+            return redirect()->route('my-cars')->withErrors(['error' => 'Nie możesz usunąć samochodu, jeśli istnieją zgłoszenia ']);
+        }
         $car->delete();
-        return redirect()->route('home')->with('status', 'Автомобиль успешно удалён!');
+        return redirect()->route('my-cars')->with('status', 'Samochód został usunięty!');
     }
 }

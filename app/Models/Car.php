@@ -38,8 +38,8 @@ class Car extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function serviceRequests(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasMany(Request::class);
+        return $this->hasOne(ServiceRequest::class, 'car_id');
     }
 }

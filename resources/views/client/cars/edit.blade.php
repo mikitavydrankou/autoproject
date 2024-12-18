@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="container">
-        <h1>Редактировать автомобиль</h1>
+        <h1>Edytuj samochód</h1>
         <form action="{{ route('cars.update', $car->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method("PATCH")
 
             <div class="form-group">
-                <label for="make">make</label>
+                <label for="make">Marka</label>
                 <input id="make"
                        type="text"
                        class="form-control"
@@ -18,7 +18,7 @@
             </div>
 
             <div class="form-group">
-                <label for="model">model</label>
+                <label for="model">Model</label>
                 <input id="model"
                        type="text"
                        class="form-control"
@@ -28,7 +28,7 @@
             </div>
 
             <div class="form-group">
-                <label for="year">year </label>
+                <label for="year">Rok</label>
                 <input type="number"
                        class="form-control"
                        id="year"
@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group">
-                <label for="license_plate">license_plate</label>
+                <label for="license_plate">Tablica rejestracyjna</label>
                 <input id="license_plate"
                        type="text"
                        class="form-control"
@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group">
-                <label for="engine_type">engine_type</label>
+                <label for="engine_type">Typ silnika</label>
                 <input id="engine_type"
                        type="text"
                        class="form-control"
@@ -60,7 +60,7 @@
             </div>
 
             <div class="form-group">
-                <label for="transmission">transmission</label>
+                <label for="transmission">Skrzynia biegów</label>
                 <input id="transmission"
                        type="text"
                        class="form-control"
@@ -70,7 +70,7 @@
             </div>
 
             <div class="form-group">
-                <label for="mileage">mileage</label>
+                <label for="mileage">Przebieg</label>
                 <input id="mileage"
                        type="number"
                        class="form-control"
@@ -80,7 +80,7 @@
             </div>
 
             <div class="form-group">
-                <label for="last_service_date">last_service_date</label>
+                <label for="last_service_date">Ostatnia data obsługi</label>
                 <input type="number"
                        class="form-control"
                        id="last_service_date"
@@ -92,7 +92,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="image" class="form-label">Upload Image</label>
+                <label for="image" class="form-label">Prześlij obraz</label>
                 <div class="input-group">
                     <input type="file"
                            name="image"
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
         </form>
     </div>
 @endsection
